@@ -9,7 +9,7 @@ passport.serializeUser((user, done) => done(null, user.id))
 passport.deserializeUser((id, done) => User.findById(id).then(user => done(null, user)))
 
 const userHandler = async (accessToken, refreshToken, { id }, done) => { 
-    const user = await User.findOne({googleId: id})
+    let user = await User.findOne({googleId: id})
 
     if (!user) {
         user = await (new User({ googleId: id })).save() 
